@@ -1,0 +1,1306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lafarine Rooms — Fethiye</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+
+<style>
+/* ─── TOKENS ─────────────────────────────────────────────── */
+:root {
+  --black:      #141210;
+  --charcoal:   #1e1c1a;
+  --mid:        #2e2b28;
+  --cream:      #f0ebe0;
+  --cream-dark: #e4ddd0;
+  --warm-white: #faf7f2;
+  --terra:      #b5724a;
+  --terra-light:#c8895f;
+  --brass:      #c4a46b;
+  --muted:      #8a847a;
+  --serif:      'Cormorant Garamond', Georgia, serif;
+  --sans:       'DM Sans', system-ui, sans-serif;
+}
+
+/* ─── RESET ──────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--charcoal);
+  color: var(--cream);
+  font-family: var(--sans);
+  font-weight: 300;
+  font-size: 16px;
+  line-height: 1.7;
+  overflow-x: hidden;
+}
+img { display: block; width: 100%; height: 100%; object-fit: cover; }
+a { color: inherit; text-decoration: none; }
+button { cursor: pointer; border: none; background: none; font: inherit; }
+
+/* ─── GRAIN OVERLAY ──────────────────────────────────────── */
+body::before {
+  content: '';
+  position: fixed; inset: 0; z-index: 9999;
+  pointer-events: none;
+  opacity: 0.032;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  background-size: 200px 200px;
+}
+
+/* ─── TYPOGRAPHY ─────────────────────────────────────────── */
+h1, h2, h3, h4 { font-family: var(--serif); font-weight: 400; line-height: 1.1; }
+h1 { font-size: clamp(3.5rem, 8vw, 8rem); letter-spacing: -0.01em; }
+h2 { font-size: clamp(2.2rem, 4vw, 4rem); }
+h3 { font-size: clamp(1.4rem, 2.5vw, 2rem); font-weight: 300; }
+.label {
+  font-family: var(--sans);
+  font-size: 0.68rem;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--terra);
+}
+.label-light { color: var(--brass); }
+
+/* ─── NAV ────────────────────────────────────────────────── */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 1.5rem 2.5rem;
+  transition: background 0.4s, padding 0.4s;
+}
+nav.scrolled {
+  background: rgba(20,18,16,0.92);
+  backdrop-filter: blur(12px);
+  padding: 1rem 2.5rem;
+  border-bottom: 1px solid rgba(196,164,107,0.12);
+}
+.nav-logo {
+  font-family: var(--serif);
+  font-size: 1.25rem;
+  letter-spacing: 0.08em;
+  font-weight: 300;
+}
+.nav-right { display: flex; align-items: center; gap: 2rem; }
+.nav-links { display: flex; gap: 2rem; }
+.nav-links a {
+  font-size: 0.72rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--cream-dark);
+  opacity: 0.7;
+  transition: opacity 0.2s;
+}
+.nav-links a:hover { opacity: 1; }
+.lang-switch {
+  display: flex; gap: 0.4rem; align-items: center;
+}
+.lang-btn {
+  font-size: 0.68rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--cream-dark);
+  opacity: 0.45;
+  padding: 0.25rem 0.35rem;
+  transition: opacity 0.2s;
+  font-family: var(--sans);
+  font-weight: 500;
+}
+.lang-btn.active { opacity: 1; color: var(--brass); }
+.lang-sep { opacity: 0.2; font-size: 0.6rem; }
+.nav-hamburger { display: none; flex-direction: column; gap: 5px; padding: 4px; }
+.nav-hamburger span { display: block; width: 22px; height: 1px; background: var(--cream); transition: 0.3s; }
+
+/* ─── HERO ───────────────────────────────────────────────── */
+.hero {
+  position: relative; height: 100vh; min-height: 600px;
+  display: flex; align-items: flex-end;
+  overflow: hidden;
+}
+.hero-bg {
+  position: absolute; inset: 0;
+  transform: scale(1.08);
+  transition: transform 0.1s linear;
+}
+.hero-bg img { filter: brightness(0.72); }
+.hero-overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(to top, rgba(14,12,10,0.85) 0%, rgba(14,12,10,0.1) 60%);
+}
+.hero-content {
+  position: relative; z-index: 2;
+  padding: 0 2.5rem 5rem;
+  max-width: 1400px; width: 100%;
+}
+.hero-tagline {
+  font-family: var(--serif);
+  font-size: clamp(1rem, 1.5vw, 1.3rem);
+  font-style: italic;
+  color: var(--cream-dark);
+  opacity: 0.8;
+  margin-bottom: 1rem;
+}
+.hero h1 {
+  line-height: 0.95;
+  margin-bottom: 0.3em;
+}
+.hero h1 em {
+  font-style: italic;
+  color: var(--cream-dark);
+  display: block;
+  font-size: 0.6em;
+  letter-spacing: 0.06em;
+}
+.hero-sub {
+  font-size: clamp(0.85rem, 1.2vw, 1rem);
+  color: var(--cream-dark);
+  opacity: 0.65;
+  max-width: 40ch;
+  margin-bottom: 2.5rem;
+  font-weight: 300;
+}
+.hero-ctas { display: flex; gap: 1rem; flex-wrap: wrap; }
+.btn-primary {
+  display: inline-flex; align-items: center; gap: 0.6rem;
+  background: var(--terra);
+  color: var(--cream);
+  padding: 0.85rem 1.8rem;
+  font-family: var(--sans);
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  transition: background 0.25s, transform 0.2s;
+}
+.btn-primary:hover { background: var(--terra-light); transform: translateY(-1px); }
+.btn-secondary {
+  display: inline-flex; align-items: center; gap: 0.6rem;
+  border: 1px solid rgba(240,235,224,0.35);
+  color: var(--cream);
+  padding: 0.85rem 1.8rem;
+  font-family: var(--sans);
+  font-size: 0.72rem;
+  font-weight: 400;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  transition: border-color 0.25s, background 0.25s;
+}
+.btn-secondary:hover { border-color: var(--cream); background: rgba(240,235,224,0.06); }
+.hero-scroll-hint {
+  position: absolute; bottom: 2rem; right: 2.5rem; z-index: 2;
+  display: flex; flex-direction: column; align-items: center; gap: 0.5rem;
+  font-size: 0.62rem; letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--cream); opacity: 0.35;
+  writing-mode: vertical-rl;
+}
+.scroll-line {
+  width: 1px; height: 48px;
+  background: linear-gradient(to bottom, var(--cream), transparent);
+  animation: scrollDown 2s ease-in-out infinite;
+}
+@keyframes scrollDown {
+  0%,100% { opacity: 0.3; transform: scaleY(1); transform-origin: top; }
+  50% { opacity: 0.8; transform: scaleY(1.3); }
+}
+
+/* ─── SECTIONS ───────────────────────────────────────────── */
+section { position: relative; }
+.container { max-width: 1320px; margin: 0 auto; padding: 0 2.5rem; }
+.divider { width: 48px; height: 1px; background: var(--terra); margin: 1.5rem 0; }
+.divider-right { margin-left: auto; }
+
+/* ─── ABOUT ──────────────────────────────────────────────── */
+.about {
+  background: var(--warm-white);
+  color: var(--black);
+  padding: 8rem 0 7rem;
+}
+.about-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 5rem 8rem;
+  align-items: center;
+}
+.about-left .label { color: var(--terra); }
+.about-left h2 { margin: 1rem 0 2rem; color: var(--black); }
+.about-left p {
+  font-size: 1.05rem;
+  line-height: 1.8;
+  color: #3a3630;
+  margin-bottom: 1.2rem;
+}
+.about-right { position: relative; }
+.about-img-main {
+  aspect-ratio: 3/4;
+  overflow: hidden;
+}
+.about-img-accent {
+  position: absolute;
+  width: 55%;
+  aspect-ratio: 4/3;
+  bottom: -3rem;
+  left: -2.5rem;
+  overflow: hidden;
+  border: 4px solid var(--warm-white);
+}
+.about-stats {
+  display: flex; gap: 3rem;
+  margin-top: 2.5rem;
+  padding-top: 2.5rem;
+  border-top: 1px solid rgba(26,25,23,0.1);
+}
+.stat-num {
+  font-family: var(--serif);
+  font-size: 2.6rem;
+  font-weight: 300;
+  color: var(--terra);
+  line-height: 1;
+}
+.stat-label { font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-top: 0.3rem; }
+
+/* ─── ROOMS ──────────────────────────────────────────────── */
+.rooms {
+  background: var(--charcoal);
+  padding: 8rem 0;
+}
+.rooms-header { margin-bottom: 4rem; }
+.rooms-header h2 { margin: 1rem 0; }
+.rooms-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1px;
+  background: rgba(196,164,107,0.1);
+}
+.room-card {
+  background: var(--charcoal);
+  overflow: hidden;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+.room-card:hover { background: var(--mid); }
+.room-img {
+  aspect-ratio: 3/4;
+  overflow: hidden;
+}
+.room-img img { transition: transform 0.7s cubic-bezier(0.25,0.46,0.45,0.94); }
+.room-card:hover .room-img img { transform: scale(1.06); }
+.room-info { padding: 1.5rem 1.25rem 2rem; }
+.room-name {
+  font-family: var(--serif);
+  font-size: 1.35rem;
+  margin: 0.5rem 0 0.75rem;
+}
+.room-desc { font-size: 0.82rem; color: var(--muted); line-height: 1.6; }
+.room-tag {
+  display: inline-block;
+  font-size: 0.6rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  padding: 0.25rem 0.6rem;
+  border: 1px solid var(--terra);
+  color: var(--terra);
+  margin-top: 1rem;
+}
+
+/* ─── GALLERY ────────────────────────────────────────────── */
+.gallery {
+  background: var(--black);
+  padding: 7rem 0;
+}
+.gallery-header { margin-bottom: 3rem; }
+.gallery-mosaic {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  grid-template-rows: repeat(3, 200px);
+  gap: 6px;
+}
+.gal-item { overflow: hidden; }
+.gal-item img { transition: transform 0.6s ease; }
+.gal-item:hover img { transform: scale(1.04); }
+.g1 { grid-column: 1/5; grid-row: 1/3; }
+.g2 { grid-column: 5/8; grid-row: 1/2; }
+.g3 { grid-column: 8/13; grid-row: 1/2; }
+.g4 { grid-column: 5/8; grid-row: 2/3; }
+.g5 { grid-column: 8/10; grid-row: 2/4; }
+.g6 { grid-column: 10/13; grid-row: 2/3; }
+.g7 { grid-column: 1/5; grid-row: 3/4; }
+.g8 { grid-column: 5/8; grid-row: 3/4; }
+.g9 { grid-column: 10/13; grid-row: 3/4; }
+
+/* ─── LOCATION ───────────────────────────────────────────── */
+.location {
+  background: var(--warm-white);
+  color: var(--black);
+  padding: 8rem 0;
+}
+.location-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 5rem;
+  align-items: start;
+}
+.map-placeholder {
+  aspect-ratio: 4/3;
+  background: #c8c0b4;
+  display: flex; align-items: center; justify-content: center;
+  overflow: hidden;
+  position: relative;
+}
+.map-placeholder iframe {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  border: none;
+}
+.map-label {
+  font-size: 0.7rem; letter-spacing: 0.15em; text-transform: uppercase;
+  color: #6a625a; text-align: center;
+}
+.location h2 { color: var(--black); margin: 1rem 0 2rem; }
+.location-items { margin-top: 2rem; }
+.loc-item {
+  display: flex; align-items: flex-start; gap: 1.2rem;
+  padding: 1rem 0;
+  border-bottom: 1px solid rgba(26,25,23,0.08);
+}
+.loc-icon {
+  width: 36px; height: 36px;
+  background: var(--charcoal);
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0; margin-top: 0.1rem;
+}
+.loc-icon svg { width: 14px; height: 14px; stroke: var(--brass); fill: none; stroke-width: 1.5; }
+.loc-name { font-family: var(--serif); font-size: 1.05rem; color: var(--black); }
+.loc-dist { font-size: 0.78rem; color: var(--muted); margin-top: 0.15rem; }
+
+/* ─── REVIEWS ────────────────────────────────────────────── */
+.reviews {
+  background: var(--mid);
+  padding: 8rem 0;
+}
+.reviews-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2px;
+  margin-top: 3rem;
+}
+.review-card {
+  background: var(--charcoal);
+  padding: 3rem 2.5rem;
+  position: relative;
+}
+.review-card::before {
+  content: '\201C';
+  position: absolute; top: 1.5rem; left: 2rem;
+  font-family: var(--serif);
+  font-size: 5rem;
+  line-height: 1;
+  color: var(--terra);
+  opacity: 0.25;
+}
+.review-text {
+  font-family: var(--serif);
+  font-size: 1.1rem;
+  font-style: italic;
+  line-height: 1.7;
+  color: var(--cream-dark);
+  position: relative; z-index: 1;
+}
+.review-author { margin-top: 1.5rem; }
+.review-name { font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--brass); }
+.review-origin { font-size: 0.72rem; color: var(--muted); margin-top: 0.15rem; }
+
+/* ─── CONTACT ────────────────────────────────────────────── */
+.contact {
+  background: var(--warm-white);
+  color: var(--black);
+  padding: 8rem 0;
+}
+.contact-grid {
+  display: grid;
+  grid-template-columns: 5fr 7fr;
+  gap: 6rem;
+  align-items: start;
+}
+.contact h2 { color: var(--black); margin: 1rem 0 2.5rem; }
+.contact-info-item {
+  display: flex; align-items: flex-start; gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+.contact-info-item .ci-label { font-size: 0.65rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); margin-bottom: 0.3rem; }
+.contact-info-item .ci-val { font-size: 0.95rem; color: var(--black); }
+.contact-info-item a:hover { color: var(--terra); }
+.wa-btn {
+  display: inline-flex; align-items: center; gap: 0.6rem;
+  background: #2a5c44;
+  color: #fff;
+  padding: 0.8rem 1.5rem;
+  font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase;
+  margin-top: 0.5rem;
+  transition: background 0.2s;
+}
+.wa-btn:hover { background: #1e4432; }
+
+/* Contact Form */
+.contact-form { display: flex; flex-direction: column; gap: 1.2rem; }
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem; }
+.form-group { display: flex; flex-direction: column; gap: 0.4rem; }
+.form-group label { font-size: 0.65rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); }
+.form-group input,
+.form-group textarea,
+.form-group select {
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid rgba(26,25,23,0.2);
+  padding: 0.7rem 0;
+  font-family: var(--sans);
+  font-size: 0.9rem;
+  color: var(--black);
+  outline: none;
+  transition: border-color 0.2s;
+  width: 100%;
+}
+.form-group input:focus,
+.form-group textarea:focus,
+.form-group select:focus { border-color: var(--terra); }
+.form-group textarea { resize: vertical; min-height: 120px; }
+.form-note { font-size: 0.72rem; color: var(--muted); }
+.form-success {
+  display: none;
+  background: rgba(181,114,74,0.08);
+  border-left: 2px solid var(--terra);
+  padding: 1rem 1.2rem;
+  font-size: 0.85rem;
+  color: var(--terra);
+}
+
+/* ─── FOOTER ─────────────────────────────────────────────── */
+footer {
+  background: var(--black);
+  padding: 5rem 0 2.5rem;
+  border-top: 1px solid rgba(196,164,107,0.08);
+}
+.footer-top {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: 3rem;
+  margin-bottom: 4rem;
+}
+.footer-brand-name {
+  font-family: var(--serif);
+  font-size: 1.8rem;
+  letter-spacing: 0.06em;
+  margin-bottom: 0.5rem;
+}
+.footer-brand-sub { font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); }
+.footer-desc { font-size: 0.82rem; color: var(--muted); line-height: 1.7; margin-top: 1.2rem; max-width: 28ch; }
+.footer-heading { font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--brass); margin-bottom: 1.2rem; }
+.footer-links { list-style: none; display: flex; flex-direction: column; gap: 0.7rem; }
+.footer-links li a { font-size: 0.82rem; color: var(--muted); transition: color 0.2s; }
+.footer-links li a:hover { color: var(--cream); }
+.footer-social { display: flex; gap: 1rem; margin-top: 1.5rem; }
+.social-link {
+  width: 36px; height: 36px;
+  border: 1px solid rgba(196,164,107,0.2);
+  display: flex; align-items: center; justify-content: center;
+  color: var(--muted);
+  font-size: 0.7rem; letter-spacing: 0.08em;
+  transition: border-color 0.2s, color 0.2s;
+}
+.social-link:hover { border-color: var(--brass); color: var(--brass); }
+.footer-bottom {
+  display: flex; align-items: center; justify-content: space-between;
+  padding-top: 2rem;
+  border-top: 1px solid rgba(196,164,107,0.08);
+  font-size: 0.72rem;
+  color: var(--muted);
+}
+.footer-bottom-links { display: flex; gap: 2rem; }
+.footer-bottom-links a:hover { color: var(--cream); }
+
+/* ─── FADE IN ─────────────────────────────────────────────── */
+.fade-in {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.75s ease, transform 0.75s ease;
+}
+.fade-in.visible { opacity: 1; transform: none; }
+.fade-delay-1 { transition-delay: 0.1s; }
+.fade-delay-2 { transition-delay: 0.2s; }
+.fade-delay-3 { transition-delay: 0.3s; }
+.fade-delay-4 { transition-delay: 0.4s; }
+
+/* ─── MOBILE MENU ─────────────────────────────────────────── */
+.mobile-menu {
+  display: none;
+  position: fixed; inset: 0; z-index: 99;
+  background: var(--black);
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2.5rem;
+}
+.mobile-menu.open { display: flex; }
+.mobile-menu a {
+  font-family: var(--serif);
+  font-size: 2rem;
+  color: var(--cream);
+  letter-spacing: 0.05em;
+}
+.mobile-menu .mobile-lang { display: flex; gap: 1rem; margin-top: 1rem; }
+.mobile-close {
+  position: absolute; top: 1.5rem; right: 2rem;
+  font-size: 1.5rem; color: var(--cream); opacity: 0.6;
+}
+
+/* ─── RESPONSIVE ─────────────────────────────────────────── */
+@media (max-width: 1024px) {
+  .rooms-grid { grid-template-columns: repeat(2, 1fr); }
+  .footer-top { grid-template-columns: 1fr 1fr; }
+  .gallery-mosaic { grid-template-rows: repeat(3, 160px); }
+}
+@media (max-width: 768px) {
+  nav { padding: 1.2rem 1.5rem; }
+  nav.scrolled { padding: 0.8rem 1.5rem; }
+  .nav-links { display: none; }
+  .nav-hamburger { display: flex; }
+  .hero-content { padding: 0 1.5rem 4rem; }
+  .container { padding: 0 1.5rem; }
+  .about-grid { grid-template-columns: 1fr; gap: 3rem; }
+  .about-img-accent { display: none; }
+  .rooms-grid { grid-template-columns: 1fr; }
+  .gallery-mosaic { display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: auto; }
+  .g1,.g2,.g3,.g4,.g5,.g6,.g7,.g8,.g9 { grid-column: auto; grid-row: auto; }
+  .gal-item { aspect-ratio: 1; }
+  .location-grid { grid-template-columns: 1fr; gap: 3rem; }
+  .reviews-grid { grid-template-columns: 1fr; }
+  .contact-grid { grid-template-columns: 1fr; gap: 3rem; }
+  .form-row { grid-template-columns: 1fr; }
+  .footer-top { grid-template-columns: 1fr; gap: 2rem; }
+  .footer-bottom { flex-direction: column; gap: 1rem; text-align: center; }
+  h1 { font-size: clamp(3rem, 12vw, 5rem); }
+}
+</style>
+<template id="__bundler_thumbnail" data-bg-color="#1e1c1a">
+  <svg viewBox="0 0 400 260" xmlns="http://www.w3.org/2000/svg">
+    <rect width="400" height="260" fill="#1e1c1a"/>
+    <!-- Hero image placeholder -->
+    <rect x="0" y="0" width="400" height="160" fill="#2e2b28"/>
+    <rect x="0" y="120" width="400" height="80" fill="url(#grad)"/>
+    <defs>
+      <linearGradient id="grad" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="#1e1c1a" stop-opacity="0"/>
+        <stop offset="100%" stop-color="#1e1c1a" stop-opacity="1"/>
+      </linearGradient>
+    </defs>
+    <!-- Hotel name -->
+    <text x="32" y="108" font-family="Georgia,serif" font-size="28" font-weight="300" fill="#f0ebe0" letter-spacing="2">Lafarine</text>
+    <text x="32" y="136" font-family="Georgia,serif" font-size="16" font-weight="300" fill="#c4a46b" letter-spacing="4">ROOMS</text>
+    <!-- Divider line -->
+    <rect x="32" y="152" width="40" height="1" fill="#b5724a"/>
+    <!-- Location label -->
+    <text x="32" y="172" font-family="sans-serif" font-size="8" fill="#8a847a" letter-spacing="3">FETHIYE · TURKEY</text>
+    <!-- Bottom bar -->
+    <rect x="0" y="220" width="400" height="40" fill="#141210"/>
+    <rect x="32" y="234" width="80" height="12" rx="1" fill="#2e2b28"/>
+    <rect x="136" y="234" width="60" height="12" rx="1" fill="#2e2b28"/>
+  </svg>
+</template>
+</head>
+<body>
+
+<!-- ═══ NAV ═══════════════════════════════════════════════ -->
+<nav id="navbar">
+  <a href="#" class="nav-logo">Lafarine Rooms</a>
+  <div class="nav-right">
+    <div class="nav-links">
+      <a href="#about" data-i18n="nav_about">About</a>
+      <a href="#rooms" data-i18n="nav_rooms">Rooms</a>
+      <a href="#gallery" data-i18n="nav_gallery">Gallery</a>
+      <a href="#location" data-i18n="nav_location">Location</a>
+      <a href="#contact" data-i18n="nav_contact">Contact</a>
+    </div>
+    <div class="lang-switch">
+      <button class="lang-btn active" data-lang="en">EN</button>
+      <span class="lang-sep">·</span>
+      <button class="lang-btn" data-lang="de">DE</button>
+      <span class="lang-sep">·</span>
+      <button class="lang-btn" data-lang="tr">TR</button>
+    </div>
+    <button class="nav-hamburger" id="hamburgerBtn" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- Mobile Menu -->
+<div class="mobile-menu" id="mobileMenu">
+  <button class="mobile-close" id="mobileClose">✕</button>
+  <a href="#about" data-i18n="nav_about">About</a>
+  <a href="#rooms" data-i18n="nav_rooms">Rooms</a>
+  <a href="#gallery" data-i18n="nav_gallery">Gallery</a>
+  <a href="#location" data-i18n="nav_location">Location</a>
+  <a href="#contact" data-i18n="nav_contact">Contact</a>
+  <div class="mobile-lang">
+    <button class="lang-btn" data-lang="en">EN</button>
+    <button class="lang-btn" data-lang="de">DE</button>
+    <button class="lang-btn" data-lang="tr">TR</button>
+  </div>
+</div>
+
+<!-- ═══ HERO ═══════════════════════════════════════════════ -->
+<section class="hero" id="hero">
+  <!-- PHOTO: Replace with aerial or moody street-level shot of Fethiye / hotel exterior -->
+  <div class="hero-bg" id="heroBg">
+    <img src="uploads/ORC_0252-kopya.jpg" alt="Lafarine Rooms — Fethiye marina view terrace">
+  </div>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <div class="label label-light fade-in" data-i18n="hero_label">Fethiye · Muğla · Turkey</div>
+    <h1 class="fade-in fade-delay-1">
+      Lafarine<em data-i18n="hero_sub">Rooms</em>
+    </h1>
+    <p class="hero-tagline fade-in fade-delay-2" data-i18n="hero_tagline">Small hotel. True character. Right in the heart of Fethiye.</p>
+    <p class="hero-sub fade-in fade-delay-3" data-i18n="hero_desc">17 individually designed rooms in the old town. Close to the harbour, the bazaar, and the sea.</p>
+    <div class="hero-ctas fade-in fade-delay-4">
+      <a href="https://lafarine.rezervasyonal.com/" target="_blank" rel="noopener" class="btn-primary" data-i18n="cta_book">Book via Booking.com</a>
+      <a href="#contact" class="btn-secondary" data-i18n="cta_contact">Contact us</a>
+    </div>
+  </div>
+  <div class="hero-scroll-hint">
+    <div class="scroll-line"></div>
+  </div>
+</section>
+
+<!-- ═══ ABOUT ══════════════════════════════════════════════ -->
+<section class="about" id="about">
+  <div class="container">
+    <div class="about-grid">
+      <div class="about-left">
+        <div class="label fade-in" data-i18n="about_label">About the Hotel</div>
+        <h2 class="fade-in fade-delay-1" data-i18n="about_title">A place that feels like Fethiye</h2>
+        <div class="divider fade-in fade-delay-1"></div>
+        <p class="fade-in fade-delay-2" data-i18n="about_p1">Lafarine Rooms is a small, personal hotel in the centre of Fethiye — a town on Turkey's Turquoise Coast where the mountains meet the Aegean. 17 rooms, a handful of staff who know the city by heart, and a quiet confidence that comes from doing less, better.</p>
+        <p class="fade-in fade-delay-3" data-i18n="about_p2">We are two minutes from the bazaar, five minutes from the harbour, and ten minutes from wherever you need to be. The old town wraps around us — its light, its noise, its warmth — and that is precisely the point.</p>
+        <p class="fade-in fade-delay-3" data-i18n="about_p3">No conference rooms. No pools with sunbeds in rows. Just good rooms, genuine hospitality, and Fethiye outside your door.</p>
+        <div class="about-stats fade-in fade-delay-4">
+          <div>
+            <div class="stat-num">17</div>
+            <div class="stat-label" data-i18n="stat_rooms">Rooms</div>
+          </div>
+          <div>
+            <div class="stat-num">2'</div>
+            <div class="stat-label" data-i18n="stat_bazaar">to the Bazaar</div>
+          </div>
+          <div>
+            <div class="stat-num">5'</div>
+            <div class="stat-label" data-i18n="stat_harbour">to the Harbour</div>
+          </div>
+        </div>
+      </div>
+      <div class="about-right fade-in fade-delay-2">
+        <!-- PHOTO: Interior or facade of Lafarine Rooms hotel -->
+        <div class="about-img-main">
+          <img src="uploads/ORC_8127-kopya-copy.jpg" alt="Lafarine Rooms — sea view room">
+        </div>
+        <!-- PHOTO: Detail shot — door, texture, courtyard, window -->
+        <div class="about-img-accent">
+          <img src="uploads/ORC_8156-kopya.jpg" alt="Lafarine Rooms — standard room">
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ ROOMS ══════════════════════════════════════════════ -->
+<section class="rooms" id="rooms">
+  <div class="container">
+    <div class="rooms-header">
+      <div class="label label-light fade-in" data-i18n="rooms_label">Accommodation</div>
+      <h2 class="fade-in fade-delay-1" data-i18n="rooms_title">The Rooms</h2>
+      <div class="divider fade-in fade-delay-1"></div>
+    </div>
+  </div>
+  <div class="rooms-grid fade-in fade-delay-2">
+    <div class="room-card">
+      <!-- PHOTO: Standard room — clean, warm, simple -->
+      <div class="room-img">
+        <img src="uploads/ORC_8165-kopya.jpg" alt="Land View Room — Lafarine Rooms">
+      </div>
+      <div class="room-info">
+        <div class="label" data-i18n="room1_tag">Land View</div>
+        <div class="room-name" data-i18n="room1_name">Land View Room</div>
+        <div class="room-desc" data-i18n="room1_desc">Comfortable and quietly furnished. Everything you need, nothing that gets in the way. King or twin configuration.</div>
+        <div class="room-tag" data-i18n="room_up_to">Up to 2 guests</div>
+      </div>
+    </div>
+    <div class="room-card">
+      <!-- PHOTO: Deluxe room — slightly more spacious, nice light -->
+      <div class="room-img">
+        <img src="uploads/ORC_8206-kopya.jpg" alt="Sea View Room — Lafarine Rooms">
+      </div>
+      <div class="room-info">
+        <div class="label" data-i18n="room2_tag">Sea View</div>
+        <div class="room-name" data-i18n="room2_name">Sea View Room</div>
+        <div class="room-desc" data-i18n="room2_desc">More space, larger window, a seating corner. For those who like a little more room to breathe.</div>
+        <div class="room-tag" data-i18n="room_up_to">Up to 2 guests</div>
+      </div>
+    </div>
+    <div class="room-card">
+      <!-- PHOTO: Family room or triple — two beds, warm tone -->
+      <div class="room-img">
+        <img src="uploads/ORC_8218-kopya.jpg" alt="Family Room — Lafarine Rooms">
+      </div>
+      <div class="room-info">
+        <div class="label" data-i18n="room3_tag">Family</div>
+        <div class="room-name" data-i18n="room3_name">Family Room</div>
+        <div class="room-desc" data-i18n="room3_desc">A generous layout for families or small groups. Two separate sleeping areas, shared bathroom.</div>
+        <div class="room-tag" data-i18n="room_up_to3">Up to 3 guests</div>
+      </div>
+    </div>
+    <div class="room-card">
+      <!-- PHOTO: Best room in the hotel — distinctive feature -->
+      <div class="room-img">
+        <img src="uploads/ORC_0230-kopya.jpg" alt="Suite — Lafarine Rooms">
+      </div>
+      <div class="room-info">
+        <div class="label" data-i18n="room4_tag">Suite</div>
+        <div class="room-name" data-i18n="room4_name">Suite</div>
+        <div class="room-desc" data-i18n="room4_desc">Our finest room. Elevated floor, the best view of the city, and a few extra touches that make the difference.</div>
+        <div class="room-tag" data-i18n="room_up_to">Up to 2 guests</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ GALLERY ════════════════════════════════════════════ -->
+<section class="gallery" id="gallery">
+  <div class="container">
+    <div class="gallery-header">
+      <div class="label label-light fade-in" data-i18n="gallery_label">Gallery</div>
+      <h2 class="fade-in fade-delay-1" data-i18n="gallery_title">A glimpse</h2>
+      <div class="divider fade-in fade-delay-1"></div>
+    </div>
+    <div class="gallery-mosaic fade-in fade-delay-2">
+      <!-- Replace each src with your actual photos. Alt texts indicate suggested content. -->
+      <div class="gal-item g1"><img src="uploads/ORC_8107-kopya-copy.jpg" alt="Lafarine Rooms — sea view room interior"></div>
+      <div class="gal-item g2"><img src="uploads/ORC_8127-kopya-copy.jpg" alt="Lafarine Rooms — sea view room with marina"></div>
+      <div class="gal-item g3"><img src="uploads/ORC_8202-kopya.jpg" alt="Lafarine Rooms — room with sea view"></div>
+      <div class="gal-item g4"><img src="https://www.lafarinerooms.com/wp-content/uploads/2019/06/ORC_8156-kopya-1024x682.jpg" alt="Lafarine Rooms — room detail"></div>
+      <div class="gal-item g5"><img src="uploads/ORC_8170-kopya.jpg" alt="Lafarine Rooms — room detail"></div>
+      <div class="gal-item g6"><img src="uploads/ORC_0244-kopya.jpg" alt="Lafarine Rooms — suite kitchen"></div>
+      <div class="gal-item g7"><img src="uploads/ORC_0269-kopya.jpg" alt="Lafarine Rooms — room interior"></div>
+      <div class="gal-item g8"><img src="uploads/ORC_8218-kopya.jpg" alt="Lafarine Rooms — sea view room"></div>
+      <div class="gal-item g9"><img src="uploads/ORC_0252-kopya.jpg" alt="Lafarine Rooms — terrace with jacuzzi and marina view"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ LOCATION ═══════════════════════════════════════════ -->
+<section class="location" id="location">
+  <div class="container">
+    <div class="location-grid">
+      <div>
+        <div class="label fade-in" data-i18n="loc_label">Where we are</div>
+        <h2 class="fade-in fade-delay-1" data-i18n="loc_title">In the heart of Fethiye</h2>
+        <div class="divider fade-in fade-delay-1"></div>
+        <p class="fade-in fade-delay-2" data-i18n="loc_desc">Fethiye is one of the most beautiful towns on Turkey's Aegean coast — surrounded by forested mountains, ancient Lycian tombs, and a bay that catches the light differently every hour. We are right in the centre of it all.</p>
+        <div class="location-items fade-in fade-delay-3">
+          <div class="loc-item">
+            <div class="loc-icon"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div>
+            <div>
+              <div class="loc-name" data-i18n="loc_oldtown">Fethiye Old Town</div>
+              <div class="loc-dist" data-i18n="loc_oldtown_d">2 min walk</div>
+            </div>
+          </div>
+          <div class="loc-item">
+            <div class="loc-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 2v3m0 14v3M2 12h3m14 0h3"/></svg></div>
+            <div>
+              <div class="loc-name" data-i18n="loc_bazaar">Grand Bazaar</div>
+              <div class="loc-dist" data-i18n="loc_bazaar_d">2 min walk</div>
+            </div>
+          </div>
+          <div class="loc-item">
+            <div class="loc-icon"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
+            <div>
+              <div class="loc-name" data-i18n="loc_harbour">Fethiye Harbour</div>
+              <div class="loc-dist" data-i18n="loc_harbour_d">5 min walk</div>
+            </div>
+          </div>
+          <div class="loc-item">
+            <div class="loc-icon"><svg viewBox="0 0 24 24"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg></div>
+            <div>
+              <div class="loc-name" data-i18n="loc_beach">Ölüdeniz Beach</div>
+              <div class="loc-dist" data-i18n="loc_beach_d">Ölüdeniz — 15 min by car</div>
+            </div>
+          </div>
+          <div class="loc-item">
+            <div class="loc-icon"><svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div>
+            <div>
+              <div class="loc-name" data-i18n="loc_airport">Dalaman Airport</div>
+              <div class="loc-dist" data-i18n="loc_airport_d">~50 km / 45 min by car</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="fade-in fade-delay-2">
+        <!-- Replace iframe src with actual Google Maps embed for Lafarine Rooms -->
+        <div class="map-placeholder">
+          <iframe
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3188.1!2d29.1218!3d36.6554!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14c042f4b1234567%3A0xabcdef!2sFevzi+%C3%87akmak+Cd.+No%3A24%2F1%2C+Karagözler%2C+48300+Fethiye%2FMu%C4%9Fla!5e0!3m2!1sen!2str!4v1700000000000"
+            allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+            title="La Farine Rooms — Karagözler, Fevzi Çakmak Cd. No:24/1, Fethiye">
+          </iframe>
+        </div>
+        <p style="font-size:0.7rem;color:var(--muted);margin-top:0.7rem;" data-i18n="map_note">↑ Replace with correct Google Maps embed for Lafarine Rooms, Fethiye</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ REVIEWS ════════════════════════════════════════════ -->
+<section class="reviews" id="reviews">
+  <div class="container">
+    <div class="label label-light fade-in" data-i18n="reviews_label">Guest voices</div>
+    <h2 class="fade-in fade-delay-1" style="margin:1rem 0;" data-i18n="reviews_title">What guests say</h2>
+    <div class="divider fade-in fade-delay-1"></div>
+    <div class="reviews-grid">
+      <div class="review-card fade-in">
+        <div class="review-text" data-i18n="review1_text">"The location is unbeatable — we walked everywhere. The room was quiet, spotlessly clean, and the staff made us feel like regulars from the first morning."</div>
+        <div class="review-author">
+          <div class="review-name" data-i18n="review1_name">Sarah & Tom</div>
+          <div class="review-origin" data-i18n="review1_origin">United Kingdom · Booking.com</div>
+        </div>
+      </div>
+      <div class="review-card fade-in fade-delay-1">
+        <div class="review-text" data-i18n="review2_text">"Ein kleines Hotel mit großem Herz. Zentral, ruhig und herzlich geführt. Wir kommen wieder."</div>
+        <div class="review-author">
+          <div class="review-name" data-i18n="review2_name">Familie Brauer</div>
+          <div class="review-origin" data-i18n="review2_origin">Deutschland · Booking.com</div>
+        </div>
+      </div>
+      <div class="review-card fade-in fade-delay-2">
+        <div class="review-text" data-i18n="review3_text">"Fethiye'nin tam merkezinde, her şeye yürüme mesafesinde. Samimi, temiz ve huzurlu bir otel. Kesinlikle tavsiye ederim."</div>
+        <div class="review-author">
+          <div class="review-name" data-i18n="review3_name">Ayşe K.</div>
+          <div class="review-origin" data-i18n="review3_origin">İstanbul · Google</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ CONTACT ════════════════════════════════════════════ -->
+<section class="contact" id="contact">
+  <div class="container">
+    <div class="contact-grid">
+      <div>
+        <div class="label fade-in" data-i18n="contact_label">Get in touch</div>
+        <h2 class="fade-in fade-delay-1" data-i18n="contact_title">Contact us</h2>
+        <div class="divider fade-in fade-delay-1"></div>
+        <div class="fade-in fade-delay-2">
+          <div class="contact-info-item">
+            <div>
+              <div class="ci-label" data-i18n="ci_address">Address</div>
+              <div class="ci-val">Karagözler, Fevzi Çakmak Cd. No:24/1<br>48300 Fethiye, Muğla, Türkiye</div>
+            </div>
+          </div>
+          <div class="contact-info-item">
+            <div>
+              <div class="ci-label" data-i18n="ci_phone">Phone</div>
+              <div class="ci-val"><a href="tel:+902526140035">(0252) 614 00 35</a><br><a href="tel:+905338180330">+90 533 818 03 30</a></div>
+            </div>
+          </div>
+          <div class="contact-info-item">
+            <div>
+              <div class="ci-label" data-i18n="ci_email">E-Mail</div>
+              <div class="ci-val"><a href="mailto:info@lafarinerooms.com">info@lafarinerooms.com</a></div>
+            </div>
+          </div>
+          <div class="contact-info-item">
+            <div>
+              <div class="ci-label">WhatsApp</div>
+              <a href="https://wa.me/905338180330" target="_blank" class="wa-btn">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.127.557 4.123 1.528 5.856L0 24l6.335-1.508A11.934 11.934 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 0 1-5.007-1.373l-.36-.214-3.729.978.994-3.629-.235-.372A9.818 9.818 0 1 1 12 21.818z"/></svg>
+                <span data-i18n="wa_chat">Chat on WhatsApp</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="fade-in fade-delay-2">
+        <form class="contact-form" id="contactForm">
+          <div class="form-row">
+            <div class="form-group">
+              <label data-i18n="form_name">Name</label>
+              <input type="text" name="name" required>
+            </div>
+            <div class="form-group">
+              <label data-i18n="form_email">E-Mail</label>
+              <input type="email" name="email" required>
+            </div>
+          </div>
+          <div class="form-group">
+            <label data-i18n="form_dates">Travel Dates (optional)</label>
+            <input type="text" name="dates" placeholder="e.g. 10–17 July 2025">
+          </div>
+          <div class="form-group">
+            <label data-i18n="form_message">Message</label>
+            <textarea name="message" required></textarea>
+          </div>
+          <p class="form-note" data-i18n="form_note">For bookings please use Booking.com. This form is for questions, special requests and direct enquiries.</p>
+          <button type="submit" class="btn-primary" style="align-self:flex-start;" data-i18n="form_send">Send message</button>
+          <div class="form-success" id="formSuccess" data-i18n="form_success">Thank you — we will get back to you shortly.</div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ FOOTER ═════════════════════════════════════════════ -->
+<footer>
+  <div class="container">
+    <div class="footer-top">
+      <div>
+        <div class="footer-brand-name">Lafarine Rooms</div>
+        <div class="footer-brand-sub">Fethiye · Muğla · Turkey</div>
+        <div class="footer-desc" data-i18n="footer_desc">A small, personal hotel in the old town of Fethiye. 17 rooms. Real hospitality.</div>
+        <div class="footer-social">
+          <!-- REPLACE: actual Instagram/Facebook links -->
+          <a href="#" class="social-link" aria-label="Instagram">IG</a>
+          <a href="#" class="social-link" aria-label="Facebook">FB</a>
+          <a href="https://www.booking.com" target="_blank" class="social-link" aria-label="Booking.com">BK</a>
+        </div>
+      </div>
+      <div>
+        <div class="footer-heading" data-i18n="footer_nav">Navigation</div>
+        <ul class="footer-links">
+          <li><a href="#about" data-i18n="nav_about">About</a></li>
+          <li><a href="#rooms" data-i18n="nav_rooms">Rooms</a></li>
+          <li><a href="#gallery" data-i18n="nav_gallery">Gallery</a></li>
+          <li><a href="#location" data-i18n="nav_location">Location</a></li>
+          <li><a href="#contact" data-i18n="nav_contact">Contact</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-heading" data-i18n="footer_book">Book</div>
+        <ul class="footer-links">
+          <li><a href="https://lafarine.rezervasyonal.com/" target="_blank" rel="noopener">Rezervasyonal</a></li>
+          <li><a href="#" data-i18n="footer_other_ota">Other platforms</a></li>
+        </ul>
+        <div class="footer-heading" style="margin-top:2rem;" data-i18n="footer_sister">Sister Hotel</div>
+        <ul class="footer-links">
+          <!-- REPLACE: actual Nakas hotel link -->
+          <li><a href="#" data-i18n="footer_nakas">Nakas Hotel, Fethiye</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-heading" data-i18n="footer_contact">Contact</div>
+        <ul class="footer-links">
+          <li><a href="mailto:info@lafarinerooms.com">info@lafarinerooms.com</a></li>
+          <li><a href="tel:+902526140035">(0252) 614 00 35</a></li>
+          <li><a href="tel:+905338180330">+90 533 818 03 30</a></li>
+          <li><a href="https://wa.me/905338180330">+90 533 818 03 30</a></li>
+          <li style="margin-top:0.5rem; font-size:0.78rem; color:#5a544e; line-height:1.5;">Karagözler, Fevzi Çakmak Cd. No:24/1<br>48300 Fethiye, Muğla</li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2025 Lafarine Rooms. <span data-i18n="footer_rights">All rights reserved.</span></span>
+      <div class="footer-bottom-links">
+        <a href="#" data-i18n="footer_impressum">Impressum</a>
+        <a href="#" data-i18n="footer_privacy">Privacy</a>
+        <a href="#" data-i18n="footer_cookies">Cookies</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- ═══ TWEAKS PANEL ═══════════════════════════════════════ -->
+<div id="tweaksPanel" style="display:none;position:fixed;bottom:2rem;right:2rem;z-index:1000;
+  background:rgba(20,18,16,0.96);border:1px solid rgba(196,164,107,0.25);
+  padding:1.5rem;width:240px;font-family:var(--sans);font-size:0.78rem;color:var(--cream);">
+  <div style="font-size:0.65rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--brass);margin-bottom:1rem;">Tweaks</div>
+  <div style="margin-bottom:1rem;">
+    <label style="font-size:0.65rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:0.4rem;">Accent colour</label>
+    <div style="display:flex;gap:0.5rem;flex-wrap:wrap;">
+      <button onclick="setAccent('#b5724a','#c8895f')" style="width:24px;height:24px;background:#b5724a;border:none;cursor:pointer;" title="Terracotta"></button>
+      <button onclick="setAccent('#9b7c5a','#b28d6b')" style="width:24px;height:24px;background:#9b7c5a;border:none;cursor:pointer;" title="Warm brown"></button>
+      <button onclick="setAccent('#6a8c7a','#7fa090')" style="width:24px;height:24px;background:#6a8c7a;border:none;cursor:pointer;" title="Aegean green"></button>
+      <button onclick="setAccent('#8a7a9b','#9b8aac')" style="width:24px;height:24px;background:#8a7a9b;border:none;cursor:pointer;" title="Lavender"></button>
+    </div>
+  </div>
+  <div style="margin-bottom:1rem;">
+    <label style="font-size:0.65rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:0.4rem;">Background</label>
+    <div style="display:flex;gap:0.5rem;">
+      <button onclick="setBg('#1e1c1a','#141210','#f0ebe0','#faf7f2')" style="width:24px;height:24px;background:#1e1c1a;border:2px solid #555;cursor:pointer;" title="Dark"></button>
+      <button onclick="setBg('#f0ebe0','#e4ddd0','#1e1c1a','#1e1c1a')" style="width:24px;height:24px;background:#f0ebe0;border:none;cursor:pointer;" title="Light"></button>
+    </div>
+  </div>
+  <div>
+    <label style="font-size:0.65rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:0.4rem;">Section spacing</label>
+    <input type="range" min="5" max="12" value="8" style="width:100%;" oninput="setSpacing(this.value)">
+  </div>
+</div>
+
+<script>
+/* ─── i18n ───────────────────────────────────────────── */
+const TRANSLATIONS = {
+  en: {
+    nav_about: "About", nav_rooms: "Rooms", nav_gallery: "Gallery",
+    nav_location: "Location", nav_contact: "Contact",
+    hero_label: "Fethiye · Muğla · Turkey",
+    hero_sub: "Rooms",
+    hero_tagline: "Small hotel. True character. Right in the heart of Fethiye.",
+    hero_desc: "17 individually designed rooms in the old town. Close to the harbour, the bazaar, and the sea.",
+    cta_book: "Book via Booking.com",
+    cta_contact: "Contact us",
+    about_label: "About the Hotel",
+    about_title: "A place that feels like Fethiye",
+    about_p1: "Lafarine Rooms is a small, personal hotel in the centre of Fethiye — a town on Turkey's Turquoise Coast where the mountains meet the Aegean. 17 rooms, a handful of staff who know the city by heart, and a quiet confidence that comes from doing less, better.",
+    about_p2: "We are two minutes from the bazaar, five minutes from the harbour, and ten minutes from wherever you need to be. The old town wraps around us — its light, its noise, its warmth — and that is precisely the point.",
+    about_p3: "No conference rooms. No pools with sunbeds in rows. Just good rooms, genuine hospitality, and Fethiye outside your door.",
+    stat_rooms: "Rooms", stat_bazaar: "to the Bazaar", stat_harbour: "to the Harbour",
+    rooms_label: "Accommodation", rooms_title: "The Rooms",
+    room1_tag: "Standard", room1_name: "Classic Room",
+    room1_desc: "Comfortable and quietly furnished. Everything you need, nothing that gets in the way. King or twin configuration.",
+    room2_tag: "Deluxe", room2_name: "Deluxe Room",
+    room2_desc: "More space, larger window, a seating corner. For those who like a little more room to breathe.",
+    room3_tag: "Family", room3_name: "Family Room",
+    room3_desc: "A generous layout for families or small groups. Two separate sleeping areas, shared bathroom.",
+    room4_tag: "Superior", room4_name: "Superior Room",
+    room4_desc: "Our finest room. Elevated floor, the best view of the city, and a few extra touches that make the difference.",
+    room_up_to: "Up to 2 guests", room_up_to3: "Up to 3 guests",
+    gallery_label: "Gallery", gallery_title: "A glimpse",
+    loc_label: "Where we are", loc_title: "In the heart of Fethiye",
+    loc_desc: "Fethiye is one of the most beautiful towns on Turkey's Aegean coast — surrounded by forested mountains, ancient Lycian tombs, and a bay that catches the light differently every hour. We are right in the centre of it all.",
+    loc_oldtown: "Fethiye Old Town", loc_oldtown_d: "2 min walk",
+    loc_bazaar: "Grand Bazaar", loc_bazaar_d: "2 min walk",
+    loc_harbour: "Fethiye Harbour", loc_harbour_d: "5 min walk",
+    loc_beach: "Çalış Beach", loc_beach_d: "4 km / 10 min by dolmuş",
+    loc_airport: "Dalaman Airport", loc_airport_d: "~50 km / 45 min by car",
+    map_note: "↑ Replace with correct Google Maps embed for Lafarine Rooms, Fethiye",
+    reviews_label: "Guest voices", reviews_title: "What guests say",
+    review1_text: "\"The location is unbeatable — we walked everywhere. The room was quiet, spotlessly clean, and the staff made us feel like regulars from the first morning.\"",
+    review1_name: "Sarah & Tom", review1_origin: "United Kingdom · Booking.com",
+    review2_text: "\"Ein kleines Hotel mit großem Herz. Zentral, ruhig und herzlich geführt. Wir kommen wieder.\"",
+    review2_name: "Familie Brauer", review2_origin: "Deutschland · Booking.com",
+    review3_text: "\"Fethiye'nin tam merkezinde, her şeye yürüme mesafesinde. Samimi, temiz ve huzurlu bir otel.\"",
+    review3_name: "Ayşe K.", review3_origin: "İstanbul · Google",
+    contact_label: "Get in touch", contact_title: "Contact us",
+    ci_address: "Address", ci_phone: "Phone", ci_email: "E-Mail",
+    wa_chat: "Chat on WhatsApp",
+    form_name: "Name", form_email: "E-Mail", form_dates: "Travel Dates (optional)",
+    form_message: "Message",
+    form_note: "For bookings please use Booking.com. This form is for questions, special requests and direct enquiries.",
+    form_send: "Send message",
+    form_success: "Thank you — we will get back to you shortly.",
+    footer_desc: "A small, personal hotel in the old town of Fethiye. 17 rooms. Real hospitality.",
+    footer_nav: "Navigation", footer_book: "Book", footer_other_ota: "Other platforms",
+    footer_sister: "Sister Hotel", footer_nakas: "Nakas Hotel, Fethiye",
+    footer_contact: "Contact", footer_rights: "All rights reserved.",
+    footer_impressum: "Impressum", footer_privacy: "Privacy", footer_cookies: "Cookies"
+  },
+  de: {
+    nav_about: "Über uns", nav_rooms: "Zimmer", nav_gallery: "Galerie",
+    nav_location: "Lage", nav_contact: "Kontakt",
+    hero_label: "Fethiye · Muğla · Türkei",
+    hero_sub: "Rooms",
+    hero_tagline: "Kleines Hotel. Echter Charakter. Mitten in Fethiye.",
+    hero_desc: "17 individuell gestaltete Zimmer in der Altstadt. Nah am Hafen, am Bazar und am Meer.",
+    cta_book: "Über Booking.com buchen",
+    cta_contact: "Kontakt aufnehmen",
+    about_label: "Über das Hotel",
+    about_title: "Ein Ort, der sich wie Fethiye anfühlt",
+    about_p1: "Lafarine Rooms ist ein kleines, persönliches Hotel im Zentrum von Fethiye — einer Stadt an der türkischen Türkisküste, wo die Berge auf die Ägäis treffen. 17 Zimmer, ein kleines Team, das die Stadt in- und auswendig kennt, und eine ruhige Gewissheit, die entsteht, wenn man weniger, aber besser macht.",
+    about_p2: "Zwei Minuten zum Bazar, fünf Minuten zum Hafen, zehn Minuten zu jedem Ort, den Sie erreichen möchten. Die Altstadt umhüllt uns — ihr Licht, ihr Lärm, ihre Wärme — und genau das ist der Punkt.",
+    about_p3: "Keine Konferenzräume. Keine Pools mit Liegen in Reih und Glied. Nur gute Zimmer, echte Gastfreundschaft und Fethiye direkt vor der Tür.",
+    stat_rooms: "Zimmer", stat_bazaar: "zum Bazar", stat_harbour: "zum Hafen",
+    rooms_label: "Unterkunft", rooms_title: "Die Zimmer",
+    room1_tag: "Standard", room1_name: "Classic Zimmer",
+    room1_desc: "Komfortabel und ruhig eingerichtet. Alles, was Sie brauchen — nichts, was stört. König- oder Zweibettkonfiguration.",
+    room2_tag: "Deluxe", room2_name: "Deluxe Zimmer",
+    room2_desc: "Mehr Platz, größeres Fenster, eine Sitzecke. Für alle, die etwas mehr Raum zum Atmen mögen.",
+    room3_tag: "Familie", room3_name: "Familienzimmer",
+    room3_desc: "Ein großzügiger Grundriss für Familien oder kleine Gruppen. Zwei getrennte Schlafbereiche, gemeinsames Bad.",
+    room4_tag: "Superior", room4_name: "Superior Zimmer",
+    room4_desc: "Unser bestes Zimmer. Höhere Etage, der beste Blick auf die Stadt und einige besondere Details.",
+    room_up_to: "Bis zu 2 Gäste", room_up_to3: "Bis zu 3 Gäste",
+    gallery_label: "Galerie", gallery_title: "Ein Einblick",
+    loc_label: "Unsere Lage", loc_title: "Im Herzen von Fethiye",
+    loc_desc: "Fethiye ist eine der schönsten Städte an der türkischen Ägäisküste — umgeben von bewaldeten Bergen, antiken lykischen Gräbern und einer Bucht, die das Licht jede Stunde anders einfängt. Wir befinden uns mittendrin.",
+    loc_oldtown: "Fethiye Altstadt", loc_oldtown_d: "2 Minuten zu Fuß",
+    loc_bazaar: "Großer Bazar", loc_bazaar_d: "2 Minuten zu Fuß",
+    loc_harbour: "Hafen Fethiye", loc_harbour_d: "5 Minuten zu Fuß",
+    loc_beach: "Çalış Strand", loc_beach_d: "4 km / 10 Min. mit dem Dolmuş",
+    loc_airport: "Flughafen Dalaman", loc_airport_d: "~50 km / 45 Min. mit dem Auto",
+    map_note: "↑ Bitte durch korrekten Google Maps Embed für Lafarine Rooms ersetzen",
+    reviews_label: "Gästestimmen", reviews_title: "Was Gäste sagen",
+    review1_text: "\"Die Lage ist unschlagbar — wir sind überall hingegangen. Das Zimmer war ruhig, makellos sauber und das Personal hat uns vom ersten Morgen an wie Stammgäste behandelt.\"",
+    review1_name: "Sarah & Tom", review1_origin: "Vereinigtes Königreich · Booking.com",
+    review2_text: "\"Ein kleines Hotel mit großem Herz. Zentral, ruhig und herzlich geführt. Wir kommen wieder.\"",
+    review2_name: "Familie Brauer", review2_origin: "Deutschland · Booking.com",
+    review3_text: "\"Mitten in Fethiye, alles zu Fuß erreichbar. Ein herzliches, sauberes und ruhiges Hotel.\"",
+    review3_name: "Ayşe K.", review3_origin: "Istanbul · Google",
+    contact_label: "Schreiben Sie uns", contact_title: "Kontakt",
+    ci_address: "Adresse", ci_phone: "Telefon", ci_email: "E-Mail",
+    wa_chat: "WhatsApp schreiben",
+    form_name: "Name", form_email: "E-Mail", form_dates: "Reisedaten (optional)",
+    form_message: "Nachricht",
+    form_note: "Für Buchungen nutzen Sie bitte Booking.com. Dieses Formular ist für Fragen, Sonderwünsche und direkte Anfragen.",
+    form_send: "Nachricht senden",
+    form_success: "Vielen Dank — wir melden uns in Kürze bei Ihnen.",
+    footer_desc: "Ein kleines, persönliches Hotel in der Altstadt von Fethiye. 17 Zimmer. Echte Gastfreundschaft.",
+    footer_nav: "Navigation", footer_book: "Buchen", footer_other_ota: "Andere Plattformen",
+    footer_sister: "Schwesterhotel", footer_nakas: "Nakas Hotel, Fethiye",
+    footer_contact: "Kontakt", footer_rights: "Alle Rechte vorbehalten.",
+    footer_impressum: "Impressum", footer_privacy: "Datenschutz", footer_cookies: "Cookies"
+  },
+  tr: {
+    nav_about: "Hakkımızda", nav_rooms: "Odalar", nav_gallery: "Galeri",
+    nav_location: "Konum", nav_contact: "İletişim",
+    hero_label: "Fethiye · Muğla · Türkiye",
+    hero_sub: "Rooms",
+    hero_tagline: "Küçük otel. Gerçek karakter. Fethiye'nin tam kalbinde.",
+    hero_desc: "Eski şehirde 17 bireysel olarak tasarlanmış oda. Limana, pazara ve denize yakın.",
+    cta_book: "Booking.com'dan Rezervasyon",
+    cta_contact: "Bize Ulaşın",
+    about_label: "Otel Hakkında",
+    about_title: "Fethiye gibi hissettiren bir yer",
+    about_p1: "Lafarine Rooms, Türkiye'nin Türkuaz Sahili'nde, dağların Ege ile buluştuğu Fethiye'nin merkezinde küçük ve kişisel bir oteldir. 17 oda, şehri içten dışa bilen bir avuç personel ve daha azını daha iyi yapmanın getirdiği dingin bir güven.",
+    about_p2: "Pazara iki dakika, limana beş dakika, gitmeniz gereken her yere on dakika uzaklıktayız. Eski şehir bizi sarıyor — ışığıyla, gürültüsüyle, sıcaklığıyla — ve asıl mesele de bu.",
+    about_p3: "Toplantı salonu yok. Sıra sıra şezlonglu havuzlar yok. Sadece iyi odalar, gerçek misafirperverlik ve kapınızın önünde Fethiye.",
+    stat_rooms: "Oda", stat_bazaar: "Pazara", stat_harbour: "Limana",
+    rooms_label: "Konaklama", rooms_title: "Odalar",
+    room1_tag: "Standart", room1_name: "Klasik Oda",
+    room1_desc: "Konforlu ve sade döşenmiş. İhtiyacınız olan her şey, sizi yoracak hiçbir şey yok. King veya twin konfigürasyonu.",
+    room2_tag: "Deluxe", room2_name: "Deluxe Oda",
+    room2_desc: "Daha fazla alan, daha büyük pencere, bir oturma köşesi. Biraz daha nefes almayı sevenler için.",
+    room3_tag: "Aile", room3_name: "Aile Odası",
+    room3_desc: "Aileler veya küçük gruplar için geniş bir düzen. İki ayrı uyku alanı, ortak banyo.",
+    room4_tag: "Superior", room4_name: "Superior Oda",
+    room4_desc: "En iyi odamız. Yüksek kat, şehrin en güzel manzarası ve farkı yaratan birkaç ek dokunuş.",
+    room_up_to: "2 kişiye kadar", room_up_to3: "3 kişiye kadar",
+    gallery_label: "Galeri", gallery_title: "Bir bakış",
+    loc_label: "Neredeyiz", loc_title: "Fethiye'nin kalbinde",
+    loc_desc: "Fethiye, Türkiye'nin Ege kıyısındaki en güzel şehirlerden biri — ormanlık dağlarla, antik Likya kaya mezarlarıyla ve ışığı her saat farklı yakalayan bir körfezle çevrili. Biz tam da bu manzaranın içindeyiz.",
+    loc_oldtown: "Fethiye Eski Şehir", loc_oldtown_d: "2 dakika yürüyüş",
+    loc_bazaar: "Kapalı Pazar", loc_bazaar_d: "2 dakika yürüyüş",
+    loc_harbour: "Fethiye Limanı", loc_harbour_d: "5 dakika yürüyüş",
+    loc_beach: "Çalış Plajı", loc_beach_d: "4 km / dolmuşla 10 dk",
+    loc_airport: "Dalaman Havalimanı", loc_airport_d: "~50 km / araçla 45 dk",
+    map_note: "↑ Lütfen Lafarine Rooms için doğru Google Maps yerleştirmesiyle değiştirin",
+    reviews_label: "Misafir sesleri", reviews_title: "Misafirlerimiz ne diyor",
+    review1_text: "\"Konum rakipsiz — her yere yürüdük. Oda sessiz, tertemiz; personel bizi ilk sabahtan itibaren müdavim gibi hissettirdi.\"",
+    review1_name: "Sarah & Tom", review1_origin: "Birleşik Krallık · Booking.com",
+    review2_text: "\"Büyük bir kalbe sahip küçük bir otel. Merkezi, sakin ve içtenlikle yönetilen bir yer. Tekrar geleceğiz.\"",
+    review2_name: "Brauer Ailesi", review2_origin: "Almanya · Booking.com",
+    review3_text: "\"Fethiye'nin tam merkezinde, her şeye yürüme mesafesinde. Samimi, temiz ve huzurlu bir otel. Kesinlikle tavsiye ederim.\"",
+    review3_name: "Ayşe K.", review3_origin: "İstanbul · Google",
+    contact_label: "Bize yazın", contact_title: "İletişim",
+    ci_address: "Adres", ci_phone: "Telefon", ci_email: "E-Posta",
+    wa_chat: "WhatsApp'tan yaz",
+    form_name: "Ad Soyad", form_email: "E-Posta", form_dates: "Seyahat tarihleri (isteğe bağlı)",
+    form_message: "Mesaj",
+    form_note: "Rezervasyonlar için lütfen Booking.com'u kullanın. Bu form sorular, özel istekler ve doğrudan talepler içindir.",
+    form_send: "Mesaj gönder",
+    form_success: "Teşekkürler — en kısa sürede size döneceğiz.",
+    footer_desc: "Fethiye eski şehrinde küçük, kişisel bir otel. 17 oda. Gerçek misafirperverlik.",
+    footer_nav: "Gezinti", footer_book: "Rezervasyon", footer_other_ota: "Diğer platformlar",
+    footer_sister: "Kardeş Otel", footer_nakas: "Nakas Hotel, Fethiye",
+    footer_contact: "İletişim", footer_rights: "Tüm hakları saklıdır.",
+    footer_impressum: "Künye", footer_privacy: "Gizlilik", footer_cookies: "Çerezler"
+  }
+};
+
+let currentLang = 'en';
+
+function applyLang(lang) {
+  currentLang = lang;
+  const t = TRANSLATIONS[lang];
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.dataset.i18n;
+    if (t[key] !== undefined) el.textContent = t[key];
+  });
+  document.documentElement.lang = lang;
+  document.querySelectorAll('.lang-btn').forEach(btn => {
+    btn.classList.toggle('active', btn.dataset.lang === lang);
+  });
+}
+
+document.querySelectorAll('.lang-btn').forEach(btn => {
+  btn.addEventListener('click', () => applyLang(btn.dataset.lang));
+});
+
+/* ─── NAV SCROLL ──────────────────────────────────────── */
+const navbar = document.getElementById('navbar');
+window.addEventListener('scroll', () => {
+  navbar.classList.toggle('scrolled', window.scrollY > 60);
+  // Parallax hero
+  const heroBg = document.getElementById('heroBg');
+  if (heroBg) {
+    const offset = window.scrollY * 0.25;
+    heroBg.style.transform = `scale(1.08) translateY(${offset}px)`;
+  }
+}, { passive: true });
+
+/* ─── MOBILE MENU ─────────────────────────────────────── */
+const hamburger = document.getElementById('hamburgerBtn');
+const mobileMenu = document.getElementById('mobileMenu');
+const mobileClose = document.getElementById('mobileClose');
+hamburger.addEventListener('click', () => mobileMenu.classList.add('open'));
+mobileClose.addEventListener('click', () => mobileMenu.classList.remove('open'));
+mobileMenu.querySelectorAll('a').forEach(a => {
+  a.addEventListener('click', () => mobileMenu.classList.remove('open'));
+});
+
+/* ─── SCROLL FADE-IN ──────────────────────────────────── */
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('visible');
+      observer.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+/* ─── CONTACT FORM ────────────────────────────────────── */
+document.getElementById('contactForm').addEventListener('submit', e => {
+  e.preventDefault();
+  const success = document.getElementById('formSuccess');
+  success.style.display = 'block';
+  e.target.reset();
+  setTimeout(() => { success.style.display = 'none'; }, 6000);
+});
+
+/* ─── TWEAKS ──────────────────────────────────────────── */
+window.addEventListener('message', e => {
+  if (e.data?.type === '__activate_edit_mode') document.getElementById('tweaksPanel').style.display = 'block';
+  if (e.data?.type === '__deactivate_edit_mode') document.getElementById('tweaksPanel').style.display = 'none';
+});
+window.parent.postMessage({ type: '__edit_mode_available' }, '*');
+
+function setAccent(terra, terraLight) {
+  document.documentElement.style.setProperty('--terra', terra);
+  document.documentElement.style.setProperty('--terra-light', terraLight);
+}
+function setBg(charcoal, black, cream, warmWhite) {
+  document.documentElement.style.setProperty('--charcoal', charcoal);
+  document.documentElement.style.setProperty('--black', black);
+  document.documentElement.style.setProperty('--cream', cream);
+  document.documentElement.style.setProperty('--warm-white', warmWhite);
+}
+function setSpacing(val) {
+  document.querySelectorAll('.about,.rooms,.gallery,.location,.reviews,.contact').forEach(s => {
+    s.style.paddingTop = val + 'rem';
+    s.style.paddingBottom = val + 'rem';
+  });
+}
+</script>
+</body>
+</html>
