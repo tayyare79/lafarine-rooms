@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://tayyare79.github.io/lafarine-rooms/sitemap.xml
+Sitemap: https://lafarine-rooms.com/sitemap.xml
