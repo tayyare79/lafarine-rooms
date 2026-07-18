@@ -1351,6 +1351,23 @@ function setSpacing(val) {
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => navigator.serviceWorker.register('sw.js'));
 }
+
+// GoatCounter olayları: PWA yükleme ve uygulama modunda açılış
+function gcEvent(name) {
+  let tries = 0;
+  (function attempt() {
+    if (window.goatcounter && window.goatcounter.count) {
+      window.goatcounter.count({ path: name, title: name, event: true });
+    } else if (++tries < 20) {
+      setTimeout(attempt, 500);
+    }
+  })();
+}
+window.addEventListener('appinstalled', () => gcEvent('pwa-install'));
+if (window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true) {
+  gcEvent('pwa-open');
+}
 </script>
+<script data-goatcounter="https://lafarine-rooms.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
 </body>
 </html>
